@@ -9,15 +9,15 @@ const count = stream(0)
 const incrementCount = ap(r.inc, count)
 const decrementCount = ap(r.dec, count)
 
-const Counter = () => (
+const Counter = (props) => (
   <div>
-    <h1>Count: {count()}</h1>
+    <h1>{props.prefix}: {count()}</h1>
     <button onClick={decrementCount}>-</button>
     <button onClick={incrementCount}>+</button>
   </div>
 )
 
 combine(() => render(
-  <Counter />,
+  <Counter prefix='Count' />,
   document.getElementById('root')
 ), [count])
