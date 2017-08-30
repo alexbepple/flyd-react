@@ -2,16 +2,20 @@ import React from 'react'
 import {render} from 'react-dom'
 import {stream, combine} from 'flyd'
 
-const counter = stream()
-counter(2)
+const count = stream()
+count(0)
+const incrementCount = () => count(count() + 1)
+const decrementCount = () => count(count() - 1)
 
-const Message = ({message}) => (
-  <h1>Hello ({message})</h1>
+const Counter = () => (
+  <div>
+    <h1>Count: {count()}</h1>
+    <button onClick={decrementCount}>-</button>
+    <button onClick={incrementCount}>+</button>
+  </div>
 )
 
-combine(count => render(
-  <Message message={count()} />,
+combine(() => render(
+  <Counter />,
   document.getElementById('root')
-), [counter])
-
-setTimeout(() => counter(3), 1000)
+), [count])
