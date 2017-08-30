@@ -4,7 +4,11 @@ import flyd from 'flyd'
 
 import {Counter, count} from './flakes/counter'
 
+const App = () => <div>
+  <Counter prefix='Count' />
+</div>
+
 flyd.combine(() => render(
-  <Counter prefix='Count' />,
+  <App />,
   document.getElementById('root')
 ), [count])
