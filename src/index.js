@@ -2,10 +2,9 @@ import r from 'ramda'
 import React from 'react'
 import {render} from 'react-dom'
 import {stream, combine} from 'flyd'
-import {ap} from './util/flyd'
 
-const connect = (inputsAndOutputs, Presentation) => 
-  (props) => <Presentation {...r.merge(props, inputsAndOutputs)} />
+import {ap} from './util/flyd'
+import {connect} from './util/flyd-react'
 
 const count = stream(0)
 
