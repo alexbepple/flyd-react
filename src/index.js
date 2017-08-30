@@ -1,11 +1,13 @@
+import r from 'ramda'
 import React from 'react'
 import {render} from 'react-dom'
 import {stream, combine} from 'flyd'
 
-const count = stream()
-count(0)
-const incrementCount = () => count(count() + 1)
-const decrementCount = () => count(count() - 1)
+const ap = (f, s) => () => s(f(s()))
+
+const count = stream(0)
+const incrementCount = ap(r.inc, count)
+const decrementCount = ap(r.dec, count)
 
 const Counter = () => (
   <div>
