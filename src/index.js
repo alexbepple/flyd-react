@@ -1,17 +1,17 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {stream} from 'flyd'
+import {stream, combine} from 'flyd'
 
 const counter = stream()
 counter(2)
 
 const Message = ({message}) => (
-  <h1>Hello ({counter()})</h1>
+  <h1>Hello ({message})</h1>
 )
 
-render(
-  <Message message='Hello!' />,
+combine(count => render(
+  <Message message={count()} />,
   document.getElementById('root')
-)
+), [counter])
 
-counter(3)
+setTimeout(() => counter(3), 1000)
