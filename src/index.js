@@ -5,17 +5,26 @@ import {stream, combine} from 'flyd'
 
 const ap = (f, s) => () => s(f(s()))
 
-const count = stream(0)
-const incrementCount = ap(r.inc, count)
-const decrementCount = ap(r.dec, count)
+const connect = (inputsAndOutputs, Presentation) => 
+  (props) => <Presentation {...r.merge(props, inputsAndOutputs)} />
 
-const Counter = (props) => (
+const count = stream(0)
+
+const CounterInternal = (props) => (
   <div>
-    <h1>{props.prefix}: {count()}</h1>
-    <button onClick={decrementCount}>-</button>
-    <button onClick={incrementCount}>+</button>
+    <h1>{props.prefix}: {props.count()}</h1>
+    <button onClick={props.decrementCount}>-</button>
+    <button onClick={props.incrementCount}>+</button>
   </div>
 )
+
+const inputsAndOutputs = { 
+  count, 
+  incrementCount: ap(r.inc, count), 
+  decrementCount: ap(r.dec, count)
+}
+
+const Counter = connect(inputsAndOutputs, CounterInternal)
 
 combine(() => render(
   <Counter prefix='Count' />,
