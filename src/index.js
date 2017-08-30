@@ -2,13 +2,15 @@ import React from 'react'
 import {render} from 'react-dom'
 import flyd from 'flyd'
 
-import {Counter, count} from './flakes/counter'
+import {createCounter} from './flakes/counter'
+
+const counter = createCounter()
 
 const App = () => <div>
-  <Counter prefix='Count' />
+  <counter.Counter prefix='Count' />
 </div>
 
 flyd.combine(() => render(
   <App />,
   document.getElementById('root')
-), [count])
+), [counter.count])
