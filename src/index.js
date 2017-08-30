@@ -2,8 +2,7 @@ import r from 'ramda'
 import React from 'react'
 import {render} from 'react-dom'
 import {stream, combine} from 'flyd'
-
-const ap = (f, s) => () => s(f(s()))
+import {ap} from './util/flyd'
 
 const connect = (inputsAndOutputs, Presentation) => 
   (props) => <Presentation {...r.merge(props, inputsAndOutputs)} />
